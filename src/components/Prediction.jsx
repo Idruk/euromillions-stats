@@ -249,7 +249,7 @@ export default function Prediction({ numberFreq, starFreq }) {
                 const rank = sortedNumbers.findIndex((s) => s.number === n);
                 const isLocked = lockedNumbers.includes(n);
                 return (
-                  <div key={n} className={`ball ${rank < 10 ? 'hot' : 'cold'} ${isLocked ? 'ball-locked' : ''}`}>
+                  <div key={n} className={`ball ${rank < Math.ceil(sortedNumbers.length * 0.3) ? 'hot' : 'cold'} ${isLocked ? 'ball-locked' : ''}`}>
                     <span className="ball-num">{n}</span>
                     <span className="ball-count">{isLocked ? '🔒' : `#${rank + 1}`}</span>
                   </div>
