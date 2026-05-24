@@ -79,6 +79,60 @@ export function computeDayFreq(draws) {
     .map((d) => ({ day: d[0] + d.slice(1).toLowerCase(), count: map[d] }));
 }
 
+// Split draws into chronological windows, return frequency per window per number
+export function computeWindowedFreq(draws, windowSize = 50, maxNumbers = 50) {
+  // draws are newest-first from CSV, reverse for chronological order
+  const chrono = [...draws].reverse();
+  const windows = [];
+  for (let i = 0; i < chrono.length; i += windowSize) {
+    const slice = chrono.slice(i, i + windowSize);
+    if (slice.length < windowSize * 0.5) break; // skip tiny last window
+    const freq = Array(maxNumbers).fill(0);
+    slice.forEach((d) => d.numbers.forEach((n) => { if (n >= 1 && n <= maxNumbers) freq[n - 1]++; }));
+    const label = slice[0].date?.slice(6) ?? String(i); // year label
+    windows.push({ label, freq, size: slice.length });
+  }
+  return windows;
+}
+
+export function computeWindowedStarFreq(draws, windowSize = 50) {
+  const chrono = [...draws].reverse();
+  const windows = [];
+  for (let i = 0; i < chrono.length; i += windowSize) {
+    const slice = chrono.slice(i, i + windowSize);
+    if (slice.length < windowSize * 0.5) break;
+    const freq = Array(12).fill(0);
+    slice.forEach((d) => d.stars.forEach((n) => { if (n >= 1 && n <= 12) freq[n - 1]++; }));
+    windows.push({ freq, size: slice.length });
+  }
+  return windows;
+}
+
+// Linear regression: returns { slope, intercept, r2 } for a series of y values
+export function linearRegression(ys) {
+  const n = ys.length;
+  if (n < 2) return { slope: 0, intercept: ys[0] ?? 0, r2: 0 };
+  const xs = ys.map((_, i) => i);
+  const meanX = xs.reduce((s, x) => s + x, 0) / n;
+  const meanY = ys.reduce((s, y) => s + y, 0) / n;
+  const ssXX = xs.reduce((s, x) => s + (x - meanX) ** 2, 0);
+  const ssXY = xs.reduce((s, x, i) => s + (x - meanX) * (ys[i] - meanY), 0);
+  const ssYY = ys.reduce((s, y) => s + (y - meanY) ** 2, 0);
+  const slope = ssXX === 0 ? 0 : ssXY / ssXX;
+  const intercept = meanY - slope * meanX;
+  const r2 = ssYY === 0 ? 0 : (ssXY ** 2) / (ssXX * ssYY);
+  return { slope, intercept, r2, predicted: intercept + slope * n };
+}
+
+// Compute regression for every number across windows
+export function computeRegressionStats(windows, count) {
+  return Array.from({ length: count }, (_, i) => {
+    const ys = windows.map((w) => (w.freq[i] / w.size) * 100); // % per draw
+    const reg = linearRegression(ys);
+    return { number: i + 1, ...reg, series: ys };
+  });
+}
+
 export function computePairFreq(draws, topN = 20) {
   const map = {};
   draws.forEach((d) => {

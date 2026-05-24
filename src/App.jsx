@@ -12,6 +12,7 @@ import DayChart from './components/DayChart';
 import PairChart from './components/PairChart';
 import StatsCards from './components/StatsCards';
 import Prediction from './components/Prediction';
+import Regression from './components/Regression';
 import './App.css';
 
 export default function App() {
@@ -47,6 +48,7 @@ export default function App() {
     { id: 'pairs', label: 'Paires' },
     { id: 'days', label: 'Jours' },
     { id: 'prediction', label: '✨ Prédiction' },
+    { id: 'regression', label: '📈 Régression' },
   ];
 
   return (
@@ -104,6 +106,7 @@ export default function App() {
           {tab === 'prediction' && (
             <Prediction numberFreq={numberFreq} starFreq={starFreq} />
           )}
+          {tab === 'regression' && <Regression draws={draws} />}
         </div>
       </main>
 
