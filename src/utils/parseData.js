@@ -29,21 +29,26 @@ export async function loadAllDraws() {
 
   return rows
     .filter((r) => r.boule_1 && r.boule_2)
-    .map((r) => ({
-      date: r['date_de_tirage'],
-      day: r['jour_de_tirage'],
-      numbers: [
-        parseInt(r.boule_1),
-        parseInt(r.boule_2),
-        parseInt(r.boule_3),
-        parseInt(r.boule_4),
-        parseInt(r.boule_5),
-      ].filter(Boolean),
-      stars: [
-        parseInt(r['etoile_1']),
-        parseInt(r['etoile_2']),
-      ].filter(Boolean),
-    }))
+    .map((r) => {
+      const winnersEurope =
+        parseInt(r['nombre_de_gagnant_au_rang1_Euro_Millions_en_europe'] ?? r['nombre_de_gagnant_au_rang1_en_europe'] ?? '0') || 0;
+      return {
+        date: r['date_de_tirage'],
+        day: r['jour_de_tirage'],
+        numbers: [
+          parseInt(r.boule_1),
+          parseInt(r.boule_2),
+          parseInt(r.boule_3),
+          parseInt(r.boule_4),
+          parseInt(r.boule_5),
+        ].filter(Boolean),
+        stars: [
+          parseInt(r['etoile_1']),
+          parseInt(r['etoile_2']),
+        ].filter(Boolean),
+        jackpotWon: winnersEurope > 0,
+      };
+    })
     .filter((d) => d.numbers.length === 5 && d.stars.length === 2);
 }
 
@@ -148,4 +153,12 @@ export function computePairFreq(draws, topN = 20) {
     .sort((a, b) => b[1] - a[1])
     .slice(0, topN)
     .map(([pair, count]) => ({ pair, count }));
+}
+
+export function computeWinningNumberFreq(draws, count = 50) {
+  return computeNumberFreq(draws.filter((d) => d.jackpotWon), count);
+}
+
+export function computeWinningStarFreq(draws, count = 12) {
+  return computeStarFreq(draws.filter((d) => d.jackpotWon), count);
 }

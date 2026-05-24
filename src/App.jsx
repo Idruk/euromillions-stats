@@ -5,6 +5,8 @@ import {
   computeStarFreq,
   computeDayFreq,
   computePairFreq,
+  computeWinningNumberFreq,
+  computeWinningStarFreq,
 } from './utils/parseData';
 import FrequencyBar from './components/FrequencyBar';
 import HotCold from './components/HotCold';
@@ -13,6 +15,7 @@ import PairChart from './components/PairChart';
 import StatsCards from './components/StatsCards';
 import Prediction from './components/Prediction';
 import Regression from './components/Regression';
+import WinningNumbers from './components/WinningNumbers';
 import './App.css';
 
 export default function App() {
@@ -40,6 +43,9 @@ export default function App() {
   const starFreq = computeStarFreq(draws, 12);
   const dayFreq = computeDayFreq(draws);
   const pairFreq = computePairFreq(draws, 20);
+  const winningNumberFreq = computeWinningNumberFreq(draws, 50);
+  const winningStarFreq = computeWinningStarFreq(draws, 12);
+  const totalWinning = draws.filter((d) => d.jackpotWon).length;
 
   const tabs = [
     { id: 'numbers', label: 'Numéros' },
@@ -49,6 +55,7 @@ export default function App() {
     { id: 'days', label: 'Jours' },
     { id: 'prediction', label: '✨ Prédiction' },
     { id: 'regression', label: '📈 Régression' },
+    { id: 'winning', label: '🏆 Gagnants' },
   ];
 
   return (
@@ -107,6 +114,13 @@ export default function App() {
             <Prediction numberFreq={numberFreq} starFreq={starFreq} />
           )}
           {tab === 'regression' && <Regression draws={draws} />}
+          {tab === 'winning' && (
+            <WinningNumbers
+              numberFreq={winningNumberFreq}
+              starFreq={winningStarFreq}
+              totalWinning={totalWinning}
+            />
+          )}
         </div>
       </main>
 
