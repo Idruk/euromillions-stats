@@ -1,12 +1,13 @@
 import Papa from 'papaparse';
 
+const BASE = import.meta.env.BASE_URL;
 const CSV_FILES = [
-  '/data/euromillions_202002.csv',
-  '/data/euromillions_201902.csv',
-  '/data/euromillions_4.csv',
-  '/data/euromillions_3.csv',
-  '/data/euromillions_2.csv',
-  '/data/euromillions.csv',
+  `${BASE}data/euromillions_202002.csv`,
+  `${BASE}data/euromillions_201902.csv`,
+  `${BASE}data/euromillions_4.csv`,
+  `${BASE}data/euromillions_3.csv`,
+  `${BASE}data/euromillions_2.csv`,
+  `${BASE}data/euromillions.csv`,
 ];
 
 async function loadCSV(url) {
