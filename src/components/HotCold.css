@@ -1,2 +1,2 @@
-.hotcold-title-hot { color: #ef4444; }
-.hotcold-title-cold { color: #3b82f6; }
+.hotcold-title-hot  { color: var(--hot); }
+.hotcold-title-cold { color: var(--cold); }

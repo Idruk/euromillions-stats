@@ -1,4 +1,4 @@
-.legend-hot { color: #ef4444; }
-.legend-warm { color: #f97316; }
-.legend-normal { color: #8b5cf6; }
-.legend-cold { color: #3b82f6; }
+.legend-hot    { color: var(--hot); }
+.legend-warm   { color: var(--hot-light); }
+.legend-normal { color: var(--accent-mid); }
+.legend-cold   { color: var(--cold); }

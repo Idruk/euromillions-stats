@@ -1,0 +1,47 @@
+:root {
+  /* Backgrounds */
+  --bg:            #0f0f1a;
+  --bg-card:       #1e1e2e;
+  --bg-card-dark:  #16162a;
+  --bg-black:      #1a1a1a;
+
+  /* Borders */
+  --border:        #2a2a3a;
+  --border-header: #2a2a4a;
+  --border-light:  #3b3b52;
+  --border-gray:   #374151;
+
+  /* Text */
+  --text-primary:   #e2e8f0;
+  --text-secondary: #94a3b8;
+  --text-muted:     #64748b;
+  --text-faint:     #475569;
+  --text-gray:      #4b5563;
+  --text-gray-light: #9ca3af;
+
+  /* Accent — purple */
+  --accent:       #a78bfa;
+  --accent-dark:  #7c3aed;
+  --accent-mid:   #8b5cf6;
+  --accent-indigo: #6366f1;
+
+  /* Accent — amber / gold */
+  --amber:      #f59e0b;
+  --amber-dark: #d97706;
+
+  /* Semantic — hot */
+  --hot:       #ef4444;
+  --hot-light: #f97316;
+  --hot-pale:  #fca5a5;
+
+  /* Semantic — cold */
+  --cold:       #3b82f6;
+  --cold-light: #60a5fa;
+  --cold-pale:  #93c5fd;
+  --cyan:       #06b6d4;
+
+  /* Header gradient */
+  --header-grad-start:  #1a1a2e;
+  --header-grad-mid:    #16213e;
+  --header-grad-end:    #0f3460;
+}

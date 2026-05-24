@@ -218,10 +218,10 @@ export default function Regression({ draws }) {
                 if (!payload?.length) return null;
                 const d = payload[0].payload;
                 return (
-                  <div style={{ background: '#1e1e2e', border: '1px solid #3b3b52', borderRadius: 8, padding: '8px 12px', fontSize: 12 }}>
-                    <div style={{ color: '#e2e8f0', fontWeight: 700 }}>{mode === 'numbers' ? 'Numéro' : 'Étoile'} {d.number}</div>
-                    <div style={{ color: d.slope >= 0 ? '#ef4444' : '#3b82f6' }}>Pente: {d.slope > 0 ? '+' : ''}{d.slope}</div>
-                    <div style={{ color: '#a78bfa' }}>R²: {d.r2}</div>
+                  <div className="reg-tooltip">
+                    <div className="reg-tooltip-title">{mode === 'numbers' ? 'Numéro' : 'Étoile'} {d.number}</div>
+                    <div className={d.slope >= 0 ? 'text-hot' : 'text-cold'}>Pente: {d.slope > 0 ? '+' : ''}{d.slope}</div>
+                    <div className="reg-tooltip-r2">R²: {d.r2}</div>
                   </div>
                 );
               }}

@@ -1,5 +1,5 @@
 .regression .reg-disclaimer {
-  color: #64748b;
+  color: var(--text-muted);
   font-size: 0.85rem;
   margin-bottom: 20px;
 }
@@ -11,8 +11,8 @@
   gap: 20px;
   margin-bottom: 24px;
   padding: 16px;
-  background: #16162a;
-  border: 1px solid #2a2a3a;
+  background: var(--bg-card-dark);
+  border: 1px solid var(--border);
   border-radius: 12px;
 }
 
@@ -24,7 +24,7 @@
 
 .control-group label {
   font-size: 0.75rem;
-  color: #64748b;
+  color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
@@ -38,23 +38,23 @@
 .btn-group button {
   padding: 5px 12px;
   border-radius: 6px;
-  border: 1px solid #2a2a3a;
-  background: #1e1e2e;
-  color: #64748b;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  color: var(--text-muted);
   font-size: 0.8rem;
   cursor: pointer;
   transition: all 0.15s;
 }
 
 .btn-group button:hover {
-  border-color: #a78bfa;
-  color: #e2e8f0;
+  border-color: var(--accent);
+  color: var(--text-primary);
 }
 
 .btn-group button.active {
-  background: #a78bfa;
-  border-color: #a78bfa;
-  color: #0f0f1a;
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--bg);
   font-weight: 600;
 }
 
@@ -70,7 +70,7 @@
 .reg-prediction-label {
   font-size: 1rem;
   font-weight: 600;
-  color: #e2e8f0;
+  color: var(--text-primary);
   margin-bottom: 14px;
   display: flex;
   align-items: center;
@@ -100,12 +100,12 @@
 }
 
 .reg-pred-ball:hover {
-  border-color: #a78bfa;
+  border-color: var(--accent);
   transform: translateY(-2px);
 }
 
 .reg-pred-ball-active {
-  border-color: #a78bfa;
+  border-color: var(--accent);
   background: rgba(167,139,250,0.15);
   box-shadow: 0 0 12px rgba(167,139,250,0.3);
 }
@@ -113,24 +113,24 @@
 .reg-pred-num {
   font-size: 1.4rem;
   font-weight: 800;
-  color: #e2e8f0;
+  color: var(--text-primary);
 }
 
 .reg-pred-slope {
   font-size: 0.72rem;
-  color: #ef4444;
+  color: var(--hot);
   font-weight: 600;
 }
 
 .reg-pred-hint {
   font-size: 0.75rem;
-  color: #475569;
+  color: var(--text-faint);
 }
 
 /* Detail chart */
 .reg-detail {
-  background: #16162a;
-  border: 1px solid #2a2a3a;
+  background: var(--bg-card-dark);
+  border: 1px solid var(--border);
   border-radius: 12px;
   padding: 20px;
   margin-bottom: 24px;
@@ -155,25 +155,25 @@
   flex-shrink: 0;
 }
 
-.reg-ball-hot { background: linear-gradient(135deg, #ef4444, #f97316); color: white; }
-.reg-ball-cold { background: linear-gradient(135deg, #3b82f6, #06b6d4); color: white; }
-.reg-ball-flat { background: linear-gradient(135deg, #8b5cf6, #6366f1); color: white; }
+.reg-ball-hot  { background: linear-gradient(135deg, var(--hot), var(--hot-light)); color: white; }
+.reg-ball-cold { background: linear-gradient(135deg, var(--cold), var(--cyan)); color: white; }
+.reg-ball-flat { background: linear-gradient(135deg, var(--accent-mid), var(--accent-indigo)); color: white; }
 
 .reg-detail-title {
   font-size: 1rem;
   font-weight: 700;
-  color: #e2e8f0;
+  color: var(--text-primary);
   margin-bottom: 6px;
 }
 
 .reg-detail-stats {
   font-size: 0.8rem;
-  color: #64748b;
+  color: var(--text-muted);
   margin-top: 6px;
   line-height: 1.8;
 }
 
-.reg-detail-stats strong { color: #e2e8f0; }
+.reg-detail-stats strong { color: var(--text-primary); }
 
 /* Badges */
 .badge {
@@ -184,9 +184,9 @@
   font-weight: 600;
 }
 
-.badge-up { background: rgba(239,68,68,0.15); color: #ef4444; border: 1px solid rgba(239,68,68,0.3); }
-.badge-down { background: rgba(59,130,246,0.15); color: #60a5fa; border: 1px solid rgba(59,130,246,0.3); }
-.badge-flat { background: rgba(139,92,246,0.15); color: #a78bfa; border: 1px solid rgba(139,92,246,0.3); }
+.badge-up   { background: rgba(239,68,68,0.15);  color: var(--hot);        border: 1px solid rgba(239,68,68,0.3); }
+.badge-down { background: rgba(59,130,246,0.15); color: var(--cold-light); border: 1px solid rgba(59,130,246,0.3); }
+.badge-flat { background: rgba(139,92,246,0.15); color: var(--accent);     border: 1px solid rgba(139,92,246,0.3); }
 
 /* Rankings */
 .reg-rankings {
@@ -226,14 +226,14 @@
   text-align: left;
 }
 
-.slope-row:hover { background: #16162a; border-color: #2a2a3a; }
-.slope-row-active { background: #1e1e35 !important; border-color: #a78bfa !important; }
+.slope-row:hover         { background: var(--bg-card-dark); border-color: var(--border); }
+.slope-row-active        { background: #1e1e35 !important;  border-color: var(--accent) !important; }
 
 .slope-num {
   width: 28px;
   font-size: 0.82rem;
   font-weight: 700;
-  color: #e2e8f0;
+  color: var(--text-primary);
   text-align: right;
   flex-shrink: 0;
 }
@@ -241,7 +241,7 @@
 .slope-bar-wrap {
   flex: 1;
   height: 8px;
-  background: #1e1e2e;
+  background: var(--bg-card);
   border-radius: 4px;
   overflow: hidden;
 }
@@ -252,8 +252,8 @@
   transition: width 0.4s ease;
 }
 
-.slope-bar-hot { background: linear-gradient(to right, #f97316, #ef4444); }
-.slope-bar-cold { background: linear-gradient(to right, #60a5fa, #3b82f6); }
+.slope-bar-hot  { background: linear-gradient(to right, var(--hot-light), var(--hot)); }
+.slope-bar-cold { background: linear-gradient(to right, var(--cold-light), var(--cold)); }
 
 .slope-val {
   font-size: 0.72rem;
@@ -265,7 +265,7 @@
 
 .slope-r2 {
   font-size: 0.68rem;
-  color: #475569;
+  color: var(--text-faint);
   width: 52px;
   flex-shrink: 0;
 }
@@ -278,18 +278,36 @@
 .reg-scatter-section h3 {
   font-size: 0.95rem;
   font-weight: 600;
-  color: #e2e8f0;
+  color: var(--text-primary);
   margin-bottom: 6px;
 }
 
+/* Tooltip */
+.reg-tooltip {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 12px;
+}
+
+.reg-tooltip-title {
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+.reg-tooltip-r2 {
+  color: var(--accent);
+}
+
 /* Helpers */
-.text-hot { color: #ef4444; }
-.text-cold { color: #3b82f6; }
+.text-hot  { color: var(--hot); }
+.text-cold { color: var(--cold); }
 
 .reg-footer-note {
   font-size: 0.78rem;
-  color: #475569;
-  border-top: 1px solid #1e1e2e;
+  color: var(--text-faint);
+  border-top: 1px solid var(--bg-card);
   padding-top: 16px;
   margin-top: 8px;
 }
