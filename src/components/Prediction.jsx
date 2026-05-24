@@ -6,18 +6,26 @@ function weightedPick(pool, count, hotRatio, lockedNumbers = []) {
   const needed = count - locked.length;
   if (needed <= 0) return locked.slice(0, count);
 
-  const sorted = [...pool].sort((a, b) => a.count - b.count);
-  const min = sorted[0].count;
-  const max = sorted[sorted.length - 1].count;
+  const unlocked = pool.filter((n) => !lockedNumbers.includes(n.number));
+  const sorted = [...unlocked].sort((a, b) => a.count - b.count);
+  const hotCutoff = Math.ceil(unlocked.length * 0.3);
+  const coldCutoff = Math.floor(unlocked.length * 0.7);
+  const hotSet = new Set(sorted.slice(coldCutoff).map((n) => n.number));
+  const coldSet = new Set(sorted.slice(0, hotCutoff).map((n) => n.number));
+
+  const min = sorted[0]?.count ?? 0;
+  const max = sorted[sorted.length - 1]?.count ?? 1;
   const range = max - min || 1;
 
-  const available = pool
-    .filter((n) => !lockedNumbers.includes(n.number))
-    .map((n) => {
-      const hotScore = (n.count - min) / range;
-      const coldScore = 1 - hotScore;
-      return { ...n, weight: (hotRatio / 100) * hotScore + (1 - hotRatio / 100) * coldScore };
-    });
+  let eligible = unlocked;
+  if (hotRatio === 100) eligible = unlocked.filter((n) => hotSet.has(n.number));
+  else if (hotRatio === 0) eligible = unlocked.filter((n) => coldSet.has(n.number));
+
+  const available = eligible.map((n) => {
+    const hotScore = (n.count - min) / range;
+    const coldScore = 1 - hotScore;
+    return { ...n, weight: (hotRatio / 100) * hotScore + (1 - hotRatio / 100) * coldScore };
+  });
 
   const chosen = [];
   let remaining = [...available];
@@ -25,7 +33,7 @@ function weightedPick(pool, count, hotRatio, lockedNumbers = []) {
     const totalWeight = remaining.reduce((s, n) => s + n.weight, 0);
     let rand = Math.random() * totalWeight;
     let idx = remaining.findIndex((n) => { rand -= n.weight; return rand <= 0; });
-    if (idx < 0) idx = 0;
+    if (idx < 0) idx = remaining.length - 1;
     chosen.push(remaining[idx]);
     remaining = remaining.filter((_, i) => i !== idx);
   }
@@ -134,9 +142,9 @@ export default function Prediction({ numberFreq, starFreq }) {
 
   const modeLabel =
     hotRatio === 100 ? '🔥 100% chaud' :
-    hotRatio >= 75 ? '🌶️ Majorité chaud' :
+    hotRatio >= 75  ? '🌶️ Majorité chaud' :
     hotRatio === 50 ? '⚖️ Équilibré' :
-    hotRatio <= 25 ? '❄️ Majorité froid' :
+    hotRatio > 0    ? '❄️ Majorité froid' :
     '🧊 100% froid';
 
   return (
