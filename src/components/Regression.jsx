@@ -14,6 +14,7 @@ const WINDOW_OPTIONS = [
   { label: '20 tirages', value: 20 },
   { label: '50 tirages', value: 50 },
   { label: '100 tirages', value: 100 },
+  { label: 'Tous', value: Infinity },
 ];
 
 function slopeColor(slope, maxSlope) {
@@ -79,8 +80,10 @@ export default function Regression({ draws }) {
   const [mode, setMode] = useState('numbers'); // 'numbers' | 'stars'
   const [topN, setTopN] = useState(10);
 
-  const windows = useMemo(() => computeWindowedFreq(draws, windowSize), [draws, windowSize]);
-  const starWindows = useMemo(() => computeWindowedStarFreq(draws, windowSize), [draws, windowSize]);
+  const effectiveWindowSize = windowSize === Infinity ? Math.ceil(draws.length / 20) : windowSize;
+
+  const windows = useMemo(() => computeWindowedFreq(draws, effectiveWindowSize), [draws, effectiveWindowSize]);
+  const starWindows = useMemo(() => computeWindowedStarFreq(draws, effectiveWindowSize), [draws, effectiveWindowSize]);
 
   const numberStats = useMemo(() => computeRegressionStats(windows, 50), [windows]);
   const starStats = useMemo(() => computeRegressionStats(starWindows, 12), [starWindows]);
