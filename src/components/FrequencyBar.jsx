@@ -1,6 +1,7 @@
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Cell, ResponsiveContainer,
 } from 'recharts';
+import './FrequencyBar.css';
 
 const COLORS = {
   hot: '#ef4444',
@@ -48,10 +49,10 @@ export default function FrequencyBar({ data, label, xKey = 'number', color }) {
         </BarChart>
       </ResponsiveContainer>
       <div className="legend">
-        <span style={{ color: COLORS.hot }}>● Très fréquent</span>
-        <span style={{ color: COLORS.warm }}>● Fréquent</span>
-        <span style={{ color: COLORS.normal }}>● Normal</span>
-        <span style={{ color: COLORS.cold }}>● Rare</span>
+        <span className="legend-hot">● Très fréquent</span>
+        <span className="legend-warm">● Fréquent</span>
+        <span className="legend-normal">● Normal</span>
+        <span className="legend-cold">● Rare</span>
       </div>
     </div>
   );

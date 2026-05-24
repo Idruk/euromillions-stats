@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import './Prediction.css';
 
 function weightedPick(pool, count) {
   const chosen = [];
@@ -82,8 +83,8 @@ export default function Prediction({ numberFreq, starFreq }) {
               {pick.stars.map((n) => {
                 const rank = sortedStars.findIndex((s) => s.number === n);
                 return (
-                  <div key={n} className="ball" style={{ '--ball-bg': 'linear-gradient(135deg, #f59e0b, #d97706)' }}>
-                    <span className="ball-num star-num">{n}</span>
+                  <div key={n} className="ball ball-star">
+                    <span className="ball-num">{n}</span>
                     <span className="ball-count">#{rank + 1}</span>
                   </div>
                 );
@@ -94,8 +95,8 @@ export default function Prediction({ numberFreq, starFreq }) {
           <div className="pred-method">
             <h3>Méthode utilisée</h3>
             <ul>
-              <li>60% de pondération vers les numéros <span style={{color:'#ef4444'}}>chauds</span> (fréquents)</li>
-              <li>40% de pondération vers les numéros <span style={{color:'#3b82f6'}}>froids</span> (rares) pour l'équilibre</li>
+              <li>60% de pondération vers les numéros <span className="pred-method-hot">chauds</span> (fréquents)</li>
+              <li>40% de pondération vers les numéros <span className="pred-method-cold">froids</span> (rares) pour l'équilibre</li>
               <li>Tirage aléatoire pondéré sur {numberFreq.reduce((s, d) => s + d.count, 0).toLocaleString('fr-FR')} occurrences analysées</li>
             </ul>
           </div>
