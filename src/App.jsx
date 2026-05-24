@@ -11,6 +11,7 @@ import HotCold from './components/HotCold';
 import DayChart from './components/DayChart';
 import PairChart from './components/PairChart';
 import StatsCards from './components/StatsCards';
+import Prediction from './components/Prediction';
 import './App.css';
 
 export default function App() {
@@ -45,6 +46,7 @@ export default function App() {
     { id: 'hotcold', label: 'Chaud / Froid' },
     { id: 'pairs', label: 'Paires' },
     { id: 'days', label: 'Jours' },
+    { id: 'prediction', label: '✨ Prédiction' },
   ];
 
   return (
@@ -99,6 +101,9 @@ export default function App() {
           )}
           {tab === 'pairs' && <PairChart data={pairFreq} />}
           {tab === 'days' && <DayChart data={dayFreq} />}
+          {tab === 'prediction' && (
+            <Prediction numberFreq={numberFreq} starFreq={starFreq} />
+          )}
         </div>
       </main>
 
